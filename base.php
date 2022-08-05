@@ -124,4 +124,6 @@ function dd($array){
 function to($url){
     header('location:'.$url);
 }
+
+$Poster=new DB('poster');
 ?>

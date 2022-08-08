@@ -69,10 +69,13 @@
 </form>
 </div>
 
-<script> //  8/8 上午9:46講解
+<script> //  8/8 上午9:46講解  
     $(".btn").on("click",function(){
-        let id=$(this).data('id')
+        let id=$(this).data('id').split("-")
         console.log(id);
+        $.post("./api/switch.php",{table:'poster',id},()=>{  //  8/8 上午10:22講解
+            location.reload();//做完重整畫面即可看到順序變更
+        })
     })
 
 </script>

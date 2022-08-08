@@ -25,6 +25,7 @@
             <div style="width:24.6%" class="ct">
                 <button type="button" class="btn" data-id=" <?=$row['id']."-".$prev;?>">往上</button>
                 <button type="button" class="btn" data-id="<?=$row['id']."-".$next;?>">往下</button>
+                <!-- <input type="number" name="num[]" value="<?=$row['rank'];?>">使用input欄位來完成排序功能 -->
             </div>
             <div style="width:24.6%" class="ct">
                 <input type="checkbox" name="sh[]" value="<?=$row['id'];?>" <?=($row['sh']==1)?'checked':'';?>> 顯示

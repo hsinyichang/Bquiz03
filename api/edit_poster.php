@@ -11,7 +11,7 @@ foreach($_POST['id'] as $key=>$id){   //有送過來的id資料
         $row['ani']=$_POST['ani'][$key];
         $row['sh']=(isset($_POST['sh']) && in_array($id,$_POST['sh']))?1:0;
         //如果sh  有傳送過來(在陣列裡) 則顯示1  沒有勾選的就顯示0
-        
+        // $row['rank']=$_POST['num'][$key];//使用input欄位來完成排序功能
         $Poster->save($row);
     }
 }

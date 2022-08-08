@@ -70,24 +70,21 @@ class DB{
         return $this->pdo->exec($sql);
    }
 
-   function del($arg){
-    $sql="delete from $this->table where";
-    
-        if(is_array($arg)){
-            foreach($arg as $key => $val){
+   function del($id)
+    {
+        $sql="delete from $this->table where ";
+        if(is_array($id))
+        {
+            foreach($id as $key => $val){
                 $tmp[]="`$key`='$val'";
             }
-            //$sql = $sql . " where " . join(" && ",$tmp);
-            $sql .=  join(" && ",$tmp);
+            $sql.= join(" && ",$tmp);
         }else{
-            // $sql=$sql . $arg[0];
-            $sql .= " `id`='$arg'";
+            $sql.=" `id`='$id'";
         }
-   
-
-    //echo $sql;
-    return $this->pdo->exec($sql);
-   }
+        return $this->pdo->exec($sql);
+    }
+    
    function math($math,$col,...$arg){
     $sql="select $math($col) from $this->table ";
     if(isset($arg[0])){

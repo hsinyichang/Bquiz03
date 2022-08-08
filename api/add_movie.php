@@ -12,9 +12,13 @@ if(isset($_FILES['poster']['tmp_name'])){   //處理電影海報$_POST
 }
 
 
-$_POST['ondate']=$_POST['year']."-".$_POST['month']."-".$_POST['dat'];
+$_POST['ondate']=$_POST['year']."-".$_POST['month']."-".$_POST['day'];
 //因為年月日是分開的要先處理  但欄位只有一個  所以要串接起來
 unset($_POST['year'],$_POST['month'],$_POST['day']);
 //上面串接完後  這三個要刪掉
 $_POST['sh']=1;  //自己寫
 $_POST['rank']=$Movie->math('max','id')+1; //因為一筆一筆上傳  所以排序要找到裡面目前最大id值+1
+
+$Movie->save($_POST);
+
+to("../back.php?do=movie");

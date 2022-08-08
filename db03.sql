@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2022-08-08 05:36:25
+-- 產生時間： 2022-08-08 10:28:06
 -- 伺服器版本： 10.4.24-MariaDB
 -- PHP 版本： 8.1.6
 
@@ -41,6 +41,24 @@ CREATE TABLE `movie` (
   `sh` int(10) UNSIGNED NOT NULL,
   `rank` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 傾印資料表的資料 `movie`
+--
+
+INSERT INTO `movie` (`id`, `name`, `level`, `length`, `ondate`, `publish`, `director`, `trailer`, `poster`, `intro`, `sh`, `rank`) VALUES
+(1, '第一部', '限制級', 120, '2022-08-08', '123', '123', '03B01v.mp4', '03B01.png', '123165514', 1, 1),
+(2, '2', '保護級', 123, '2022-09-03', '1561', '156', '03B02v.mp4', '03B02.png', 'dfadfafdsaf', 1, 2),
+(4, '3', '輔導級', 90, '2022-08-07', 'dsafaf', 'adsfasdf', '03B03v.mp4', '03B03.png', 'asdfafewfa', 1, 3),
+(5, '4', '限制級', 100, '2022-08-06', 'sdgasef', 'asefaesafd', '03B04v.mp4', '03B04.png', 'dafdsafaafefa', 1, 4),
+(6, '5', '保護級', 90, '2022-08-10', '5sfdag', 'dgfsadvcds', '03B05v.mp4', '03B05.png', 'dgfdgadsfca', 1, 6),
+(7, '6', '普遍級', 100, '2022-08-06', 'agsafe', 'afeaewsf', '03B06v.mp4', '03B06.png', 'dsfadsasfcafces', 1, 6),
+(8, '7', '輔導級', 100, '2022-08-06', 'agsafe', 'afeaewsf', '03B07v.mp4', '03B07.png', 'dsfadsasfcafces', 1, 7),
+(9, '8', '保護級', 100, '2022-08-06', 'agsafe', 'afeaewsf', '03B08v.mp4', '03B08.png', 'dsfadsasfcafces', 1, 8),
+(10, '9', '普遍級', 100, '2022-08-06', 'agsafe', 'afeaewsf', '03B09v.mp4', '03B09.png', 'dsfadsasfcafces', 1, 9),
+(11, '10', '普遍級', 100, '2022-08-06', 'agsafe', 'afeaewsf', '03B10v.mp4', '03B10.png', 'dsfadsasfcafces', 1, 10),
+(12, '11', '限制級', 100, '2022-08-06', 'agsafe', 'afeaewsf', '03B11v.mp4', '03B11.png', 'dsfadsasfcafces', 1, 11),
+(13, '12', '輔導級', 100, '2022-08-06', 'agsafe', 'afeaewsf', '03B12v.mp4', '03B12.png', 'dsfadsasfcafces', 1, 12);
 
 -- --------------------------------------------------------
 
@@ -96,7 +114,7 @@ ALTER TABLE `poster`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `movie`
 --
 ALTER TABLE `movie`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `poster`

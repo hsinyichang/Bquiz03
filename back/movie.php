@@ -1,6 +1,6 @@
 <button onclick="location.href='?do=add_movie'">新增電影</button>
 <hr>
-<div style="overflow:scroll;height:430px;">
+<div style="overflow:auto;height:430px;">
 <?php
 $rows=$Movie->all("order by rank");
 foreach($rows as $key=>$row){
@@ -21,7 +21,7 @@ foreach($rows as $key=>$row){
                 <div style="width:33.33%">上映時間:<?=$row['ondate']?></div>
             </div>
             <div>
-                <button onclick="show(<?=$row['id'];?>)"><?=($row['sh']==1)?'顯示':'隱藏'?></button>
+                <button onclick="show(<?=$row['id'];?>)"><?=($row['sh']==1)?'顯示':'隱藏';?></button>
                 <button onclick="sw('movie',[<?=$row['id'];?>,<?=$prev;?>])">往上</button>
                 <button onclick="sw('movie',[<?=$row['id'];?>,<?=$next;?>])">往下</button>
                 <button onclick="location.href='?do=edit_movie&id=<?=$row['id'];?>'">編輯電影</button>
@@ -38,5 +38,21 @@ foreach($rows as $key=>$row){
 </div>
 
 <script>
+function sw(table,id){    //這邊使用跟 back/poster一樣的api
+    $.post("./api/switch.php",{table,id},()=>{
+        location.reload();
+    })
+}
 
+function del(table,id){
+    $.post("./api/del_movie.php",{table,id},()=>{
+        location.reload();
+    })
+}
+
+function show(id){
+    $.post("./api/show.php",{id},()=>{
+        location.reload();
+    })
+}
 </script>

@@ -1,6 +1,6 @@
 <h3 class="ct">新增院線片</h3>
 <form action="./api/add_movie.php" method="post" enctype="multipart/form-data"><!--有要上傳檔案的地方都要加enctype-->
-<table>
+<table  style="width:75%;margin:auto">
     <tr>
         <td>影片資料</td>
         <td>

@@ -124,6 +124,7 @@ function to($url){
 
 $Poster=new DB('poster');
 $Movie=new DB('movie');
+$Order=new DB('orders');
 
 $Level=[                 //先設陣列可以讓back/movie.php使用
     '普遍級'=>'03C01.png',

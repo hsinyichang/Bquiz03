@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2022-08-08 10:28:06
+-- 產生時間： 2022-08-12 03:09:21
 -- 伺服器版本： 10.4.24-MariaDB
 -- PHP 版本： 8.1.6
 
@@ -63,6 +63,22 @@ INSERT INTO `movie` (`id`, `name`, `level`, `length`, `ondate`, `publish`, `dire
 -- --------------------------------------------------------
 
 --
+-- 資料表結構 `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `no` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `movie` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date` date NOT NULL,
+  `session` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `qt` int(11) NOT NULL,
+  `seats` text COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- 資料表結構 `poster`
 --
 
@@ -101,6 +117,12 @@ ALTER TABLE `movie`
   ADD PRIMARY KEY (`id`);
 
 --
+-- 資料表索引 `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 資料表索引 `poster`
 --
 ALTER TABLE `poster`
@@ -115,6 +137,12 @@ ALTER TABLE `poster`
 --
 ALTER TABLE `movie`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `poster`

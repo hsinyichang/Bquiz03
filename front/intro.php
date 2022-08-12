@@ -17,7 +17,7 @@ $row=$Movie->find($_GET['id']);
         <p style="margin:3px">導演 ： <?=$row['director']?></p>
         <br>
         <br>
-        <p style="margin:10px 3px 3px 3px; word-break:break-all"> 劇情簡介：<br>
+        <p style="margin:10px 3px 3px 3px; word-break:break-all"> 劇情簡介：<?=$row['intro']?><br>
         </p>
         </font>
         <table width="100%" border="0">

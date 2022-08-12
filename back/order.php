@@ -1,6 +1,11 @@
 <h3 class="ct">訂單清單</h3>
-
-<div class="header" style="display: flex; width:100%">
+<style>
+    .header div, .row div{
+        width: calc(100% / 7);
+        text-align: center;
+    } 
+</style>
+<div class="header" style="display: flex; width:100% ">
     <div>訂單編號</div>
     <div>電影名稱</div>
     <div>日期</div>
@@ -15,13 +20,21 @@
     $orders=$Order->all(" order by `no` desc");  //由大到小排序
     foreach($orders as $ord){
     ?>
-    <div style="display: flex;">
+    <div class="row" style="display: flex;align-items:center">
         <div><?=$ord['no']?></div>
         <div><?=$ord['movie']?></div>
         <div><?=$ord['date']?></div>
         <div><?=$ord['session']?></div>
         <div><?=$ord['qt']?></div>
-        <div><?=$ord['seats']?></div>
+        <div><?php
+                $seats=unserialize($ord['seats']);
+                sort($seats); //重新排序陣列中的元素
+                foreach($seats as $seat){
+                    echo (floor(($seat/5)+1))."排";
+                    echo (($seat%5)+1)."號";
+                    echo "<br>";
+                }
+        ?></div>
         <div>
             <button onclick="del('orders',<?=$ord['id']?>)">刪除</button>
         </div>

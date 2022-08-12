@@ -23,6 +23,7 @@ for($i=0;$i<10;$i++){
         }
     }
     $data['seats']=serialize($seats);
-    $Order->save($data);
+    // $Order->save($data);
+    echo $data['seats'].'<br>';
 }
 //輸入'orders'檔案用

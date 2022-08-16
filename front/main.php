@@ -1,10 +1,12 @@
 <style>
+  .lists *, .controls{
+    box-sizing: border-box;
+  }
 .lists{
   width:210px;
   height:280px;
   margin:auto;
-  background:white;
-  color: black;
+  /* background:white; */
   position: relative;/*固定位置 元素重疊*/
 }
 
@@ -12,26 +14,28 @@
   width:420px;
   height:100px;
   margin: 1rem auto;
-  background:white;
+  /* background:white; */
   display:flex;
   align-items: center;
   justify-content: space-around;
 }
 .right,.left{
-  width:0;
+  width:0;    /*使用css 做出左右三角形按鈕 */
   border-top:25px solid transparent;
   border-bottom:25px solid transparent;
 }
 .right{
-  border-left:30px solid #999;
+  border-left:30px solid lightsalmon;
 }
 .left{
-  border-right:30px solid #999;
+  border-right:30px solid lightsalmon;
 }
 .icons{
   width:320px;
-  background:yellow;
+  /* background:yellow; */
   height:100%;
+  display: flex;
+  overflow: hidden;
 }
 .poster{
   width: 100%;
@@ -40,6 +44,16 @@
 }
 .poster img{
   width: 99%;
+}
+.icon{
+  width: 80px;
+  flex-shrink: 0;
+  padding: 1.5px;
+  text-align: center;
+  font-size: small;
+}
+.icon img{
+  width: 70px;
 }
 </style>
 
@@ -61,7 +75,16 @@
           </div>
           <div class="controls">
               <div class="left"></div>
-              <div class="icons"></div>
+              <div class="icons">
+                <?php
+              foreach($pos as $key=>$po){
+              echo "<div class='icon' id={$po['id']} data-ani={$po['ani']}>";
+              echo "<img src='./upload/{$po['img']}'>";
+              echo "<div>{$po['name']}</div>";
+              echo "</div>";
+            }?>
+              </div>
+
               <div class="right"></div>
           </div>
         </div>

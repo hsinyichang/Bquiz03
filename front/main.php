@@ -41,6 +41,7 @@
   width: 100%;
   text-align: center;
   position: absolute;/*把圖片固定在同個地方  全部疊在一起 */
+  display: none;  /*下面script  只顯示第一張，所以先全部不顯示 */
 }
 .poster img{
   width: 99%;
@@ -51,9 +52,16 @@
   padding: 1.5px;
   text-align: center;
   font-size: small;
+  position: relative;
 }
 .icon img{
   width: 70px;
+}
+.left:hover,.right:hover,.icon:hover{
+  cursor: pointer;
+}
+.icon:hover{
+  border: 2px solid white;
 }
 </style>
 
@@ -66,7 +74,7 @@
             <?php
             $pos=$Poster->all(['sh'=>1]," order by rank");
             foreach($pos as $key=>$po){
-              echo "<div class='poster' id={$po['id']} data-ani={$po['ani']}>";
+              echo "<div class='poster' id=p{$po['id']} data-ani={$po['ani']}>";
               echo "<img src='./upload/{$po['img']}'>";
               echo "<div>{$po['name']}</div>";
               echo "</div>";
@@ -78,7 +86,7 @@
               <div class="icons">
                 <?php
               foreach($pos as $key=>$po){
-              echo "<div class='icon' id={$po['id']} data-ani={$po['ani']}>";
+              echo "<div class='icon' id=i{$po['id']} data-ani={$po['ani']}>";
               echo "<img src='./upload/{$po['img']}'>";
               echo "<div>{$po['name']}</div>";
               echo "</div>";
@@ -90,6 +98,75 @@
         </div>
       </div>
     </div>
+            <script>  //預告片動畫效果
+                $(".poster").eq(0).show()
+                  let start=0;
+                  $(".icon").on("click",function(){
+                    let now=$(".poster:visible").hide(1000)
+                    let id=$(this).attr("id").replace("i","p")
+                    $("#"+id).show(1000)
+                  })
+                  let slider=setInterval(()=>{ transition() },2000)
+
+                  function transition(){
+                    let now=$(".poster:visible")
+                    let eq=$(now).index()
+                      //判斷下一張海報的索引值
+                      if(eq>=$('.icon').length-1){
+                        eq=0;
+                      }else{
+                        eq=eq+1;
+                      }
+                    let next=$(".poster").eq(eq)
+                    let ani=$(now).data('ani')
+
+                    switch(ani){
+                      case 1:
+                        //淡入淡出
+                        $(now).fadeOut(800,()=>{
+                          $(next).fadeIn(800)
+                        })
+
+                      break;
+                      case 2:
+                        //滑入滑出
+                        $(now).slideUp(800,()=>{
+                          $(next).slideDown(800)
+                        })
+                      break;
+                      case 3:
+                        //縮放
+                        $(now).hide(800,()=>{
+                          $(next).show(800)
+                        })
+                      break;
+                    }
+                    
+                  }
+
+                  let p=1
+                  let pages=$(".poster").length-4
+
+                  $(".left,.right").on("click",function(){
+                    let arrow=$(this).attr('class');
+                    let shift;
+                    switch(arrow){
+                      case "left":
+                        if(p>1){
+                          p--
+                        }
+                      break;
+                      case "right":
+                        if(p<=pages){
+                          p++;
+                        }
+                        break;
+                      }
+                      shift=(p-1)*80;
+                      $(".icon").animate({right:shift})
+
+                  })
+            </script>
 
     <div class="half">
       <h1>院線片清單</h1>

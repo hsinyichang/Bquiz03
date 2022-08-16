@@ -1,172 +1,178 @@
 <style>
-  .lists *, .controls{
-    box-sizing: border-box;
-  }
+.lists *,.controls *{
+  box-sizing: border-box;
+}
 .lists{
   width:210px;
   height:280px;
   margin:auto;
-  /* background:white; */
-  position: relative;/*固定位置 元素重疊*/
+  position: relative;
 }
 
 .controls{
   width:420px;
   height:100px;
   margin: 1rem auto;
-  /* background:white; */
   display:flex;
   align-items: center;
   justify-content: space-around;
 }
 .right,.left{
-  width:0;    /*使用css 做出左右三角形按鈕 */
+  width:0;
   border-top:25px solid transparent;
   border-bottom:25px solid transparent;
 }
 .right{
-  border-left:30px solid lightsalmon;
+  border-left:30px solid lightgreen;
 }
 .left{
-  border-right:30px solid lightsalmon;
+  border-right:30px solid lightgreen;
 }
 .icons{
   width:320px;
-  /* background:yellow; */
   height:100%;
-  display: flex;
+  display:flex;
   overflow: hidden;
 }
 .poster{
-  width: 100%;
+  width:100%;
   text-align: center;
-  position: absolute;/*把圖片固定在同個地方  全部疊在一起 */
-  display: none;  /*下面script  只顯示第一張，所以先全部不顯示 */
+  position: absolute;
+  display: none;
 }
 .poster img{
-  width: 99%;
+  width:99%;
 }
 .icon{
-  width: 80px;
+  width:80px;
   flex-shrink: 0;
-  padding: 1.5px;
+  padding:2px;
   text-align: center;
   font-size: small;
-  position: relative;
+  position:relative;
 }
 .icon img{
-  width: 70px;
+  width:70px;
 }
-.left:hover,.right:hover,.icon:hover{
-  cursor: pointer;
-}
+
+.left:hover,
+.right:hover,
 .icon:hover{
-  border: 2px solid white;
+  cursor:pointer;
+}
+
+.icon:hover{
+  border:2px solid white;
 }
 </style>
-
 
 <div class="half" style="vertical-align:top;">
       <h1>預告片介紹</h1>
       <div class="rb tab" style="width:95%;">
-        <div id="abgne-block-20111227">
+        <div>
           <div class="lists">
             <?php
-            $pos=$Poster->all(['sh'=>1]," order by rank");
-            foreach($pos as $key=>$po){
-              echo "<div class='poster' id=p{$po['id']} data-ani={$po['ani']}>";
-              echo "<img src='./upload/{$po['img']}'>";
-              echo "<div>{$po['name']}</div>";
-              echo "</div>";
-            }
+              $pos=$Poster->all(['sh'=>1]," order by rank");
+              foreach($pos as $key => $po){
+                echo "<div class='poster' id='p{$po['id']}' data-ani='{$po['ani']}'>";
+                echo "<img src='./upload/{$po['img']}'>";
+                echo "<div>{$po['name']}</div>";
+                echo "</div>";
+              }
+
             ?>
           </div>
           <div class="controls">
-              <div class="left"></div>
-              <div class="icons">
-                <?php
-              foreach($pos as $key=>$po){
-              echo "<div class='icon' id=i{$po['id']} data-ani={$po['ani']}>";
-              echo "<img src='./upload/{$po['img']}'>";
-              echo "<div>{$po['name']}</div>";
-              echo "</div>";
-            }?>
-              </div>
+            <div class="left"></div>
+            <div class="icons">
+              <?php
 
-              <div class="right"></div>
+                foreach($pos as $key => $po){
+                  echo "<div class='icon' id='i{$po['id']}' data-ani='{$po['ani']}'>";
+                  echo "<img src='./upload/{$po['img']}'>";
+                  echo "<div>{$po['name']}</div>";
+                  echo "</div>";
+                }
+
+
+              ?>
+            </div>
+            <div class="right"></div>
           </div>
         </div>
       </div>
     </div>
-            <script>  //預告片動畫效果
-                $(".poster").eq(0).show()
-                  let start=0;
-                  $(".icon").on("click",function(){
-                    let now=$(".poster:visible").hide(1000)
-                    let id=$(this).attr("id").replace("i","p")
-                    $("#"+id).show(1000)
-                  })
-                  let slider=setInterval(()=>{ transition() },2000)
 
-                  function transition(){
-                    let now=$(".poster:visible")
-                    let eq=$(now).index()
-                      //判斷下一張海報的索引值
-                      if(eq>=$('.icon').length-1){
-                        eq=0;
-                      }else{
-                        eq=eq+1;
-                      }
-                    let next=$(".poster").eq(eq)
-                    let ani=$(now).data('ani')
+<script>
+$(".poster").eq(0).show()
+let start=0;
+$(".icon").on("click",function(){
+  let now=$(".poster:visible").hide(1000)
+  let id=$(this).attr("id").replace("i","p")
+  $("#"+id).show(1000)
+})
+let slider=setInterval(()=>{ transition() },2000)
 
-                    switch(ani){
-                      case 1:
-                        //淡入淡出
-                        $(now).fadeOut(800,()=>{
-                          $(next).fadeIn(800)
-                        })
+function transition(){
+  let now=$(".poster:visible")
+  let eq=$(now).index()
+    //判斷下一張海報的索引值
+    if(eq>=$('.icon').length-1){
+      eq=0;
+    }else{
+      eq=eq+1;
+    }
+  let next=$(".poster").eq(eq)
+  let ani=$(now).data('ani')
 
-                      break;
-                      case 2:
-                        //滑入滑出
-                        $(now).slideUp(800,()=>{
-                          $(next).slideDown(800)
-                        })
-                      break;
-                      case 3:
-                        //縮放
-                        $(now).hide(800,()=>{
-                          $(next).show(800)
-                        })
-                      break;
-                    }
-                    
-                  }
+  switch(ani){
+    case 1:
+      //淡入淡出
+      $(now).fadeOut(800,()=>{
+        $(next).fadeIn(800)
+      })
 
-                  let p=1
-                  let pages=$(".poster").length-4
+    break;
+    case 2:
+      //滑入滑出
+      $(now).slideUp(800,()=>{
+        $(next).slideDown(800)
+      })
+    break;
+    case 3:
+      //縮放
+      $(now).hide(800,()=>{
+        $(next).show(800)
+      })
+    break;
+  }
+  
+}
 
-                  $(".left,.right").on("click",function(){
-                    let arrow=$(this).attr('class');
-                    let shift;
-                    switch(arrow){
-                      case "left":
-                        if(p>1){
-                          p--
-                        }
-                      break;
-                      case "right":
-                        if(p<=pages){
-                          p++;
-                        }
-                        break;
-                      }
-                      shift=(p-1)*80;
-                      $(".icon").animate({right:shift})
+let p=1
+let pages=$(".poster").length-4
 
-                  })
-            </script>
+$(".left,.right").on("click",function(){
+  let arrow=$(this).attr('class');
+  let shift;
+  switch(arrow){
+    case "left":
+      if(p>1){
+        p--
+      }
+    break;
+    case "right":
+      if(p<=pages){
+        p++;
+      }
+      break;
+    }
+    shift=(p-1)*80;
+    $(".icon").animate({right:shift})
+
+})
+</script>
+
 
     <div class="half">
       <h1>院線片清單</h1>
@@ -174,7 +180,7 @@
       <?php
           $startDate=date("Y-m-d",strtotime("-2 days"));
           $today=date("Y-m-d");
-
+          
           $all=$Movie->math("count","id"," Where `sh`='1' && ondate between '$startDate' AND '$today'");
           $div=4;
           $pages=ceil($all/$div);
@@ -185,9 +191,9 @@
       ?>
         <div style="display:flex;flex-wrap:wrap;border:1px solid #ccc;border-radius:5px;width:49.5%;padding:5px;box-sizing:border-box;margin:2px 0">
             <div style="width:30%">
-            <a href="?do=intro&id=<?=$row['id'];?>">
-              <img src="./upload/<?=$row['poster'];?>" style="width:60px;height:80px;border:2px solid white">
-            </a>
+             <a href='?do=intro&id=<?=$row['id'];?>'>
+                <img src="./upload/<?=$row['poster'];?>" style="width:60px;height:80px;border:2px solid white">
+              </a>
             </div>
             <div style="width:70%;padding-left:2px;box-sizing:border-box">
               <div><?=$row['name'];?></div>
@@ -226,4 +232,5 @@
 
         ?>
         </div>
+      </div>
     </div>

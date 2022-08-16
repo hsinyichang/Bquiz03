@@ -7,6 +7,7 @@
   height:280px;
   margin:auto;
   position: relative;
+  overflow: hidden;
 }
 
 .controls{
@@ -128,6 +129,12 @@ function transition(n){
       $(now).fadeOut(800,()=>{
         $(next).fadeIn(800)
       })
+      // $(now).animate({opacity:0},800,()=>{
+      //   $(now).css({display:'none',opacity:1})
+      //   $(next).css({display:'block',opacity:0})
+
+      //   $(next).animate({opacity:1},800)
+      // })
 
     break;
     case 2:
@@ -135,12 +142,25 @@ function transition(n){
       $(now).slideUp(800,()=>{
         $(next).slideDown(800)
       })
+
+      // $(now).animate({left:-210,top:0},800,()=>{
+      //   $(now).css({display:'none',left:0})
+      // })
+
+      // $(next).css({left:210,top:0,display:'block'})
+      // $(next).animate({left:0,top:0},800)
     break;
     case 3:
       //縮放
       $(now).hide(800,()=>{
         $(next).show(800)
       })
+
+      // $(now).animate({left:105,top:140,width:0,height:0},800,()=>{
+      //   $(now).css({left:0,top:0,width:210,height:280,display:'none'})
+      //   $(next).css({left:105,top:140,width:0,height:0,display:'block'})
+      //   $(next).animate({left:0,top:0,width:210,height:280},800)
+      // })
     break;
   }
   

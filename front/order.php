@@ -35,6 +35,14 @@
 </div>
 
 <script>
+     let info={    //設全域變數(電影資訊)
+        movieId:0,
+        movieName:'',
+        date:'',
+        sessionId:0,
+        session:'',
+    }
+
     $("#movie").load("./api/movie_list.php",{id:<?=$selectedMovieId;?>},()=>{
         let movie=$("#movie").val();
         getDate(movie)
@@ -70,11 +78,26 @@
         $("#booking").show();
         $.get("./api/get_booking.php",(seats)=>{
             $("#booking").html(seats)
+            updateInfo();  //取得電影資訊
             setSeatEvents();//呼叫下方程式
         })
     }
+
+    function updateInfo(){  //將選擇的電影資訊取得值
+        info.movieId=$("#movie").val()
+        info.movieName=$("#movie option:selected").text()
+        info.date=$("#date").val()
+        info.sessionId=$("#session").val()
+        info.session=$("#session option:selected").text().split(" ")[0]
+    }
+
+
     function setSeatEvents(){  //分開寫比較清楚
         let seats=new Array(); //要設置陣列可儲存勾選的位置index
+        $("#movieName").text(info.movieName)
+        $("#dateStr").text(info.date)
+        $("#sessionName").text(info.session)
+
         $(".seat input").on("change",function(){
             let num=$(this).val();//所勾選的座位index
             

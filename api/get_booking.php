@@ -68,7 +68,15 @@ for($i=0;$i<20;$i++){
         <div>您已經勾選<span id='tickets'></span>張票，最多可以購買四張票</div>
         <div>
             <button onclick="$('#order,#booking').toggle();$('#booking').html('')">上一步</button>
-            <button>訂購</button>
+            <button onclick="checkout()">訂購</button>
         </div>
     </div>
 </div>
+
+<script>
+    function checkout(){
+        $.post("./api/order.php",info,(no)=>{
+            location.href=`?do=result&no=${no}`
+        })
+    }
+</script>

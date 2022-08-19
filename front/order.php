@@ -41,6 +41,7 @@
         date:'',
         sessionId:0,
         session:'',
+        seats:null,
     }
 
     $("#movie").load("./api/movie_list.php",{id:<?=$selectedMovieId;?>},()=>{
@@ -118,8 +119,8 @@
             }
             
             $("#tickets").text(seats.length)   //將所勾選的座位數傳回api/getbookin id='tickets' 裡
-
-                
+               
             })
+            info.seats=seats;
     }
 </script>

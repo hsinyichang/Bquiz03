@@ -77,9 +77,9 @@
     function booking(){
         $("#order").hide();
         $("#booking").show();
-        $.get("./api/get_booking.php",(seats)=>{
+        updateInfo();  //取得電影資訊
+        $.get("./api/get_booking.php",{movie:info.movieName,date:info.date,session:info.session},(seats)=>{  //將參數帶入
             $("#booking").html(seats)
-            updateInfo();  //取得電影資訊
             setSeatEvents();//呼叫下方程式
         })
     }

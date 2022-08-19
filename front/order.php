@@ -45,13 +45,6 @@
         getDate(movie)
         
     })
-
-    $("#date").on('change',function(){
-        let movie=$("#movie").val();
-        let date=$(this).val();
-        getSession(movie,date)
-    })
-
     function getDate(movie){
 
         $("#date").load("./api/date_list.php",{movie},()=>{
@@ -60,27 +53,50 @@
         })
     }
 
+    $("#date").on('change',function(){
+        let movie=$("#movie").val();
+        let date=$(this).val();
+        getSession(movie,date)
+    })
+
     function getSession(movie,date){
         $("#session").load("./api/session_list.php",{movie,date},()=>{
 
         })
     }
+
     function booking(){
         $("#order").hide();
         $("#booking").show();
         $.get("./api/get_booking.php",(seats)=>{
             $("#booking").html(seats)
-            $(".seat input").on("change",function(){
-                if($(this).parent().hasClass("empty")){
-                    $(this).parent().removeClass("empty")
-                    $(this).parent().addClass("checked")
-                }else{
-                    $(this).parent().removeClass("checked")
-                    $(this).parent().addClass("empty")
-
-                    }
-                })
+            setSeatEvents();//呼叫下方程式
         })
     }
+    function setSeatEvents(){  //分開寫比較清楚
+        let seats=new Array(); //要設置陣列可儲存勾選的位置index
+        $(".seat input").on("change",function(){
+            let num=$(this).val();//所勾選的座位index
+            
+            
+            if($(this).prop('checked')){  //先判斷checkbox的狀態，若為true(勾選)↓
+                if(seats.length>=4){  //勾選到第五個時
+                    alert("最多只能勾選四張票")
+                    $(this).prop('checked',false)  //第五個的狀態為不勾選的
+                }else{
+                    seats.push(num)   //四張以內的就將index放在陣列
+                    $(this).parent().removeClass("empty")  //更換勾選的class 可顯示有椅子的圖片
+                    $(this).parent().addClass("checked")
+                }
+            }else{    //checkbox的狀態，若為false(不勾選)↓
+                seats.splice(seats.indexOf(num),1);   //將不勾選的index開始刪除1個
+                $(this).parent().removeClass("checked")   //將有椅子的圖案換回沒有椅子的
+                $(this).parent().addClass("empty")
+            }
+            
+            $("#tickets").text(seats.length)   //將所勾選的座位數傳回api/getbookin id='tickets' 裡
 
+                
+            })
+    }
 </script>
